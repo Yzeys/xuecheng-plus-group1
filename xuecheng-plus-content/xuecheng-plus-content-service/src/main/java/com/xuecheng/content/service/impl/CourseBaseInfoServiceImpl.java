@@ -37,27 +37,28 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Autowired
     CourseCategoryMapper courseCategoryMapper;
 
+    @Transactional
     @Override
     public CourseBaseInfoDto modifyCourseBase(Long companyId, EditCourseDto editCourseDto) {
         //拿到课程id
-        Long courseId = editCourseDto.getCourseId();
+        Long courseId = editCourseDto.getId();
         //查询课程信息
         CourseBase courseBase = courseBaseMapper.selectById(courseId);
-        if (courseBase==null){
-             XueChengPlusException.cast("课程不存在");
+        if (courseBase == null) {
+            XueChengPlusException.cast("课程不存在");
         }
         //根据具体业务逻辑校验
         //本机构只能修改本机构课程
-        if (!companyId.equals(courseBase.getCompanyId())){
+        if (!companyId.equals(courseBase.getCompanyId())) {
             XueChengPlusException.cast("本机构只能修改本机构课程");
         }
         //封装数据
-        BeanUtils.copyProperties(editCourseDto,courseBase);
+        BeanUtils.copyProperties(editCourseDto, courseBase);
         //修改时间
         courseBase.setChangeDate(LocalDateTime.now());
         //更新数据库
         int i = courseBaseMapper.updateById(courseBase);
-        if (i<=0){
+        if (i <= 0) {
             XueChengPlusException.cast("修改课程失败");
         }
         //向课程营销表修改
