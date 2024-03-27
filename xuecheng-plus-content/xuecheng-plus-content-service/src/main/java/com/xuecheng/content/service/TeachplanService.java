@@ -8,4 +8,6 @@ import java.util.List;
 public interface TeachplanService {
     List<TeachplanDto> selectTreeNodes(Long courseId);
     void saveTeachplan(SaveTeachplanDto teachplanDto);
+
+    boolean deleteTeachPlan(Long teachPlanId);
 }
