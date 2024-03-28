@@ -38,4 +38,16 @@ public class TeachplanController {
             XueChengPlusException.cast("删除失败");
         }
     }
+
+    @ApiOperation("课程计划下移")
+    @PostMapping("/teachplan/movedown/{id}")
+    public void moveDownTeachplan(@PathVariable Long id){
+            teachplanService.moveDownTeachplan(id);
+        }
+
+    @ApiOperation("课程计划上移")
+    @PostMapping("/teachplan/moveup/{id}")
+    public void moveUpTeachplan(@PathVariable Long id){
+            teachplanService.moveUpTeachplan(id);
+    }
 }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("teachplan")
-public class Teachplan implements Serializable {
+public class Teachplan implements Serializable,Comparable<Teachplan> {
 
     private static final long serialVersionUID = 1L;
 
@@ -100,4 +100,8 @@ public class Teachplan implements Serializable {
     private LocalDateTime changeDate;
 
 
+    @Override
+    public int compareTo(Teachplan o) {
+        return o.getOrderby()-this.getOrderby();
+    }
 }
